@@ -21,8 +21,15 @@ public class Fraction {
     }
 
     Fraction(long n, long d) {
-        this.numerator = n;
-        this.denominator = d;
+        this.realRep = (double) n / d;
+        if (denominator < 0) {
+            this.numerator = n * -1;
+            this.denominator = d * -1;
+        }
+        else {
+            this.numerator = n;
+            this.denominator = d;
+        }
         reduce();
         this.realRep = (double) n / d;
     }
