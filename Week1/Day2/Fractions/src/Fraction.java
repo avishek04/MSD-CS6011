@@ -22,7 +22,7 @@ public class Fraction {
 
     Fraction(long n, long d) {
         this.realRep = (double) n / d;
-        if (denominator < 0) {
+        if (d < 0) {
             this.numerator = n * -1;
             this.denominator = d * -1;
         }
