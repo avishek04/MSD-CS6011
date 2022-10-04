@@ -1,7 +1,11 @@
-public class Fraction {
+public class Fraction implements Comparable<Fraction> {
     private long numerator;
     private long denominator;
     private double realRep;
+
+    public int compareTo(Fraction rhs) {
+        return (this.realRep - rhs.realRep > 0) ? 1 : (this.realRep - rhs.realRep == 0) ? 0 : -1;
+    }
 
     private long GCD() {
         long gcd = this.numerator < 0 ? -this.numerator : this.numerator;

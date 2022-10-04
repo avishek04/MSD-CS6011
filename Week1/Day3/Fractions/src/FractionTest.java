@@ -2,12 +2,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 class FractionTest {
     FractionTest() {
     }
 
     @Test
     public void runAllTests() {
+        compareTo();
         plus();
         minus();
         times();
@@ -16,6 +21,27 @@ class FractionTest {
         testToString();
         toDouble();
         reduce();
+    }
+
+    @org.junit.jupiter.api.Test
+    private void compareTo() {
+        ArrayList<Fraction> fractionList = new ArrayList<Fraction>();
+        fractionList.add(new Fraction(1,2));
+        fractionList.add(new Fraction(1,4));
+        fractionList.add(new Fraction(1,6));
+        fractionList.add(new Fraction(1,3));
+
+        ArrayList<Fraction> sortedFractionList = new ArrayList<Fraction>();
+        sortedFractionList.add(new Fraction(1,6));
+        sortedFractionList.add(new Fraction(1,4));
+        sortedFractionList.add(new Fraction(1,3));
+        sortedFractionList.add(new Fraction(1,2));
+
+        Collections.sort(fractionList);
+
+        for (int i = 0; i < 4; i++) {
+            assert (fractionList.get(i).toString().equals(sortedFractionList.get(i).toString()));
+        }
     }
     @org.junit.jupiter.api.Test
     private void plus() {
