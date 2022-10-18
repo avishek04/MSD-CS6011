@@ -27,7 +27,7 @@ public class AudioComponentWidget extends Pane {
         audioComponent_ = ac;
         parent_ = parent ;
         name_ = name ;
-        baseLayout =new HBox() ;
+        baseLayout =new HBox();
         baseLayout.setStyle("-fx-border-color: black ; -fx-border-image-width: 5 ; -fx-background-color: white");
         // Right Side
         VBox rightSide =new VBox() ;
@@ -128,6 +128,10 @@ public class AudioComponentWidget extends Pane {
     {
         parent_.getChildren().remove(this);
         SynthesizeApplication.widgets_.remove(this) ;
+        if(line_ != null)
+        {
+            parent_.getChildren().remove(line_) ;
+        }
     }
     public AudioComponent getAudioComponent()
     {

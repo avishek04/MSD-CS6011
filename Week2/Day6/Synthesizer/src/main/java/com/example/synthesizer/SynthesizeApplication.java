@@ -2,8 +2,12 @@ package com.example.synthesizer;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -24,6 +28,8 @@ public class SynthesizeApplication extends Application {
     public static Circle Speaker ;
     public static ArrayList<AudioComponentWidget> widgets_ = new ArrayList<>() ;
     public static ArrayList<AudioComponentWidget> connectedWidgetsToSpeaker_ = new ArrayList<>() ;
+
+    public static double volume_;
     @Override
     public void start( Stage stage) throws IOException {
         BorderPane root = new BorderPane();
@@ -42,6 +48,11 @@ public class SynthesizeApplication extends Application {
         Button SquareWaveButton = new Button("Square Wave");
         rightPanel.getChildren().add(SquareWaveButton);
 
+//        Button VFSineWaveButton = new Button("VFSine Wave");
+//        rightPanel.getChildren().add(VFSineWaveButton);
+//
+//        Button WhiteWaveButton = new Button("White Wave");
+//        rightPanel.getChildren().add(WhiteWaveButton);
         SineWaveButton.setOnAction(e -> createComponent("SineWave"));
         SquareWaveButton.setOnAction(e -> createComponent("SquareWave"));
         /////////////////////////////////////////////////////////
@@ -52,9 +63,39 @@ public class SynthesizeApplication extends Application {
         Speaker.setFill(Color.BLACK);
         mainCanvas_.getChildren().add(Speaker);
         ////////////////////////////////////////////////////////////
+
+        HBox volLayout =new HBox();
+        volLayout.setStyle("-fx-border-color: black ; -fx-border-image-width: 5 ; -fx-background-color: white");
+        VBox volRightSide =new VBox() ;
+        Button volCloseButton = new Button("x") ;
+        //closeButton.setOnAction(e -> closeWidget());
+
+        volRightSide.getChildren().add(volCloseButton);
+        volRightSide.setAlignment(Pos.CENTER);
+        volRightSide.setPadding(new Insets(5));
+        volRightSide.setSpacing(5);
+
+        VBox volCenter = new VBox() ;
+        volCenter.setStyle("-fx-background-color: skyblue");
+        volCenter.setAlignment(Pos.CENTER);
+        Label volNameLabel_ = new Label() ;
+        volNameLabel_.setMouseTransparent(true);
+        volNameLabel_.setText("Volume");
+
+        Slider volSlider = new Slider(0,100,50) ;
+        Label volLabel = new Label() ;
+        volLabel.setMouseTransparent(true);
+        volLabel.setText("Volume: 50");
+        volCenter.getChildren().add(volLabel);
+        volCenter.getChildren().add(volSlider);
+
+        volLayout.getChildren().add(volRightSide);
+        volLayout.getChildren().add(volCenter);
+        mainCanvas_.getChildren().add(volLayout);
+        volSlider.setOnMouseDragged( e -> handleVolSlider(e,volSlider,volLabel));
         // Bottom panel
         HBox bottomPanel = new HBox() ;
-        Button playButton = new Button("Play") ;
+        Button playButton = new Button("Play");
         bottomPanel.getChildren().add(playButton);
         playButton.setOnAction(e -> playNetwork());
         root.setRight(rightPanel);
@@ -82,7 +123,10 @@ public class SynthesizeApplication extends Application {
             AudioFormat format = new AudioFormat( 44100, 16, 1, true, false );
             //AudioComponentWidget acw = widgets_.get(0) ;
             //AudioComponent ac = acw.getAudioComponent();
-            byte[] data = mixer.getClip().getData();
+            //byte[] data = mixer.getClip().getData();
+            Filter filter = new Filter(volume_/100);
+            var finalClip = filter.ApplyFilter(mixer);
+            byte[] data = finalClip.getData();
             c.open( format, data, 0, data.length ); // Reads data from our byte array to play it.
             c.start();
             c.addLineListener(listener);
@@ -104,6 +148,14 @@ public class SynthesizeApplication extends Application {
         System.out.println("Component Created ");
         widgets_.add(acw) ;
     }
+
+    private void handleVolSlider(MouseEvent e, Slider slider, Label title)
+    {
+        int value = (int) slider.getValue();
+        title.setText("Volume: " + value);
+        volume_ = value;
+    }
+
     public static void main(String[] args) {
         launch();
     }
