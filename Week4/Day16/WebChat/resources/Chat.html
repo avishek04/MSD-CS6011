@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat App</title>
+</head>
+<body>
+<div>
+  <div>
+    <h1>
+      Snow Angel Chat Service
+    </h1>
+    <br>
+    <label for="userName">Name</label>
+    <input type="text" id="userName">
+    &nbsp;
+    &nbsp;
+    <label for="roomName">Room Name</label>
+    <input type="text" id="roomName">
+    &nbsp;
+    <button id="join">Join</button>
+    <button id="leave">Leave</button>
+  </div>
+  <hr>
+  <div style="margin: 10px; border: solid 2px black; padding: 10px; height: auto; display: flex; flex-direction: row">
+    <div style="margin: 10px; border: solid 2px black; width: 70%; height: auto; padding: 10px">
+      <h4>Chat</h4>
+      <hr/>
+      <div id="chats">
+
+      </div>
+    </div>
+    <div style="margin: 10px; border: solid 2px black; width: 30%; height: auto; padding: 10px">
+      <h4>Members</h4>
+      <hr/>
+      <div id="mem">
+
+      </div>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: row; width: 100%; margin: 10px; padding: 10px">
+    <input type="text" id="msg" placeholder="type your message here..." style="width: 65%; margin: 10px; padding: 5px"/>
+    &nbsp;
+    &nbsp;
+    <button id="send" style="width:20%; padding: 5px; margin: 10px">Send</button>
+  </div>
+</div>
+<script src="Chat.js"></script>
+</body>
+</html>

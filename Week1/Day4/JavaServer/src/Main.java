@@ -18,10 +18,10 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            ServerSocket server = null;
-            Socket clientSocket = null;
-            OutputStream outStream = null;
-            InputStream inStream = null;
+            ServerSocket server;
+            Socket clientSocket;
+            OutputStream outStream;
+            InputStream inStream;
             server = new ServerSocket(8080);
             while (true) {
                 //Scanner sc = new Scanner(in);

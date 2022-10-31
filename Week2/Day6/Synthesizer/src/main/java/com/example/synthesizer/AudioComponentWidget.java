@@ -59,7 +59,7 @@ public class AudioComponentWidget extends Pane {
         center.getChildren().add(slider) ;
 
         center.setOnMousePressed(e -> startDrag(e));
-        center.setOnMouseDragged(e -> handleDrag(e));
+        center.setOnMouseDragged(e -> handleDrag(e, output));
         //////////////////////////////////////////////////////////
         baseLayout.getChildren().add(center) ;
         baseLayout.getChildren().add(rightSide) ;
@@ -75,11 +75,17 @@ public class AudioComponentWidget extends Pane {
         widgetStartDragX_ = this.getLayoutX() ;
         widgetStartDragY_ = this.getLayoutY() ;
     }
-    private void handleDrag(MouseEvent e)
+    private void handleDrag(MouseEvent e, Circle output)
     {
         double mouseDelX = e.getSceneX() - mouseStartDragX_ ;
         double mouseDelY = e.getSceneY() - mouseStartDragY_ ;
         this.relocate(widgetStartDragX_+mouseDelX,widgetStartDragY_+ mouseDelY);
+
+        if (line_!=null) {
+            Bounds speakerBounds = output.localToScene(output.getBoundsInLocal());
+            line_.setStartX(speakerBounds.getCenterX());
+            line_.setStartY(speakerBounds.getCenterY());
+        }
     }
         //////////////////////////////////////////////////////////////////
     private void endConnection(MouseEvent e, Circle output)

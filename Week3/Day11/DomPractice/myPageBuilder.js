@@ -7,6 +7,7 @@ function main() {
     let p = document.createElement("p");
     let textP = document.createTextNode("Welcome to CS6011");
     p.append(textP);
+    p.style.color = "red";
 
     document.body.append(h1);
     document.body.append(p);
