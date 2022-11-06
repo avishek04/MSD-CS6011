@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b80e9965-aaf6-4054-83b4-5f56d4c96656" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../Week3/Day12/NotTheBees/.idea/NotTheBees.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../Week3/Day12/Sorting/.idea/Sorting.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Day16/WebChat/.idea/WebChat.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HelloThreads/.idea/HelloThreads.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HelloThreads/out/production/HelloThreads/.idea/HelloThreads.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ThreadedWebServer/ThreadedWebServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Week1/Day4/JavaServer/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Week1/Day4/JavaServer/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Week2/Day6/Synthesizer/src/main/java/com/example/synthesizer/AudioComponentWidget.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Week2/Day6/Synthesizer/src/main/java/com/example/synthesizer/AudioComponentWidget.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Week3/Day11/DomPractice/myPageBuilder.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Week3/Day11/DomPractice/myPageBuilder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Week3/Day12/Sorting/sorting.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Week3/Day12/Sorting/sorting.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +39,7 @@
       <workItem from="1667023761580" duration="22000" />
       <workItem from="1667193669864" duration="3222000" />
       <workItem from="1667197321210" duration="285000" />
+      <workItem from="1667327093892" duration="218000" />
     </task>
     <servers />
   </component>

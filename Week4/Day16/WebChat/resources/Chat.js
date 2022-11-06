@@ -8,41 +8,50 @@ let message = document.getElementById("msg");
 let send = document.getElementById("send");
 
 function addRoomNameDiv(rmName, userName) {
-    let rmNameDiv = document.createElement("div");
-    rmNameDiv.innerText = `${userName} has joined the ${rmName}`;
-    chats.append(rmNameDiv);
+    if (rmName === roomName.value) {
+        let rmNameDiv = document.createElement("div");
+        rmNameDiv.innerText = `${userName} has joined the ${rmName}`;
+        chats.append(rmNameDiv);
+    }
     return;
 }
 
-function addMember(userName) {
-    let nameDiv = document.createElement("div");
-    nameDiv.innerText = `${userName}`;
-    mem.append(nameDiv);
+function addMember(userName, rmName) {
+    if (roomName.value === rmName) {
+        let nameDiv = document.createElement("div");
+        nameDiv.innerText = `${userName}`;
+        mem.append(nameDiv);
+    }
     return;
 }
 
 function addLeaveRoomDiv(rmName, userName) {
-    let rmNameDiv = document.createElement("div");
-    rmNameDiv.innerText = `${userName} has left the ${rmName}`;
-    chats.append(rmNameDiv);
+    if (rmName === roomName.value) {
+        let rmNameDiv = document.createElement("div");
+        rmNameDiv.innerText = `${userName} has left the ${rmName}`;
+        chats.append(rmNameDiv);
+    }
     return;
 }
 
-function removeMember(userName) {
-    let memDivs = mem.getElementsByTagName("div");
-    let divPos = 0;
-    for(let i = 0; i < memDivs.length; i++) {
-        if (memDivs[i].innerText === userName) {
-            memDivs.removeChild(memDivs[i]);
+function removeMember(userName, rmName) {
+    if (rmName === roomName.value) {
+        let memDivs = mem.getElementsByTagName("div");
+        for(let i = 0; i < memDivs.length; i++) {
+            if (memDivs[i].innerText === userName) {
+                memDivs[i].remove();
+            }
         }
     }
     return;
 }
 
 function addMessageDiv(rmName, userName, message) {
-    let messageDiv = document.createElement("div");
-    messageDiv.innerText = `${userName} in ${rmName}: ${message}`;
-    chats.append(messageDiv);
+    if (rmName === roomName.value) {
+        let messageDiv = document.createElement("div");
+        messageDiv.innerText = `${userName} in ${rmName}: ${message}`;
+        chats.append(messageDiv);
+    }
     return;
 }
 
@@ -62,6 +71,7 @@ function joinRoom(event) {
     }
     if (wsOpen) {
         wbSocket.send(`join ${name} ${rmName}`);
+        wbSocket.send(`roomlist ${rmName}`);
     }
 }
 
@@ -79,14 +89,17 @@ function leaveRoom(event) {
     }
     if (wsOpen) {
         wbSocket.send(`leave ${name} ${rmName}`);
+        wbSocket.send(`roomlist ${rmName}`);
     }
 }
 
 function sendChatMsg(event) {
     let name = usrName.value;
     let msg = message.value;
+    let rmName = roomName.value;
     if (wsOpen) {
-        wbSocket.send(`${name} ${msg}`);
+        wbSocket.send(`${rmName} ${name} ${msg}`);
+        wbSocket.send(`roomlist ${rmName}`);
     }
 }
 
@@ -110,15 +123,28 @@ function handleMessageCB(event) {
     console.log(response);
     if (response.type === "join") {
         addRoomNameDiv(response.room, response.user);
-        addMember(response.user);
+        //addMember(response.user, response.room);
     }
     if (response.type === "leave") {
         addLeaveRoomDiv(response.room, response.user);
-        removeMember(response.user);
+        //removeMember(response.user, response.room);
     }
 
     if (response.type === "message") {
         addMessageDiv(response.room, response.user, response.message);
+    }
+
+    if (response.type === "roomlist") {
+        console.log(response.message);
+        let rmName = response.room;
+        let roomList = response.message.slice(1, -1);
+        let roomMem = roomList.split(",");
+        if (roomName.value === rmName) {
+            mem.innerHTML = "";
+        }
+        for (let i = 0; i < roomMem.length; i++) {
+            addMember(roomMem[i].trim(), rmName);
+        }
     }
 }
 
